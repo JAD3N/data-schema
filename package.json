@@ -1,5 +1,5 @@
 {
-	"name": "data-schema",
+	"name": "@jad3n/data-schema",
 	"version": "1.0.0",
 	"description": "A binary packet library, useful for working with WebSockets for small but structured packets.",
 	"main": "dist/data-schema.umd.js",
