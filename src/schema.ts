@@ -2,9 +2,6 @@ import {Registry} from './types/registry';
 import {DataType} from './types/dataType';
 import {Cursor} from './utils/cursor';
 
-// structure
-// filters (including priority/order)
-
 export class Schema {
 
 	public readonly registry: Registry;
