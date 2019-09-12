@@ -1,0 +1,36 @@
+{
+	"name": "@jad3n/data-schema",
+	"version": "2.0.0",
+	"description": "A binary buffer builder, useful for working with minimal structured network packets.",
+	"main": "dist/data-schema.umd.js",
+	"module": "dist/data-schema.es5.js",
+	"types": "dist/types/index.d.ts",
+	"scripts": {
+		"clean": "rimraf ./dist/",
+		"build": "rollup -c rollup.config.ts",
+		"watch": "rollup -w -c rollup.config.ts",
+		"doc": "typedoc ./src/ --target es6 --mode file --out ./docs/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/JAD3N/data-schema.git"
+	},
+	"author": "Jaden Buchan",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/JAD3N/data-schema/issues"
+	},
+	"homepage": "https://github.com/JAD3N/data-schema",
+	"devDependencies": {
+		"rimraf": "^3.0.0",
+		"rollup": "^1.20.3",
+		"rollup-plugin-cleaner": "^1.0.0",
+		"rollup-plugin-commonjs": "^10.1.0",
+		"rollup-plugin-json": "^4.0.0",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"rollup-plugin-sourcemaps": "^0.4.2",
+		"rollup-plugin-typescript2": "^0.24.0",
+		"typedoc": "^0.15.0",
+		"typescript": "^3.6.2"
+	}
+}

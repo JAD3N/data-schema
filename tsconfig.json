@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "es2015",
+		"lib": [
+			"dom",
+			"es6",
+			"es7"
+		],
+		"outDir": "dist/lib",
+		"declarationDir": "dist/types",
+		"noImplicitAny": true,
+		"preserveConstEnums": true,
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"declaration": true
+	},
+	"include": [
+		"src"
+	]
+}
