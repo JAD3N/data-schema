@@ -28,14 +28,14 @@
 			".(ts|tsx)": "ts-jest"
 		},
 		"testEnvironment": "node",
-		"testRegex": "(/tests/.*|\\.(test|spec))\\.(ts|js)$",
+		"testRegex": "(/test/.*|\\.(test|spec))\\.(ts|js)$",
 		"moduleFileExtensions": [
 			"ts",
 			"js"
 		],
 		"coveragePathIgnorePatterns": [
 			"/node_modules/",
-			"/tests/"
+			"/test/"
 		],
 		"coverageThreshold": {
 			"global": {
