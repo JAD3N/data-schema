@@ -6,7 +6,7 @@
 	"module": "dist/data-schema.es5.js",
 	"types": "dist/types/index.d.ts",
 	"scripts": {
-		"clean": "rimraf ./dist/",
+		"clean": "rimraf ./dist/ ./docs/ ./coverage/",
 		"build": "rollup -c rollup.config.ts",
 		"build:watch": "rollup -w -c rollup.config.ts",
 		"test": "jest --coverage",
