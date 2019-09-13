@@ -9,6 +9,7 @@ export class SchemaNode {
 	public readonly type: string;
 	public readonly dataType: DataType;
 
+	public options: {[key: string]: any};
 	public attributes: {[key: string]: SchemaNode};
 	public children: SchemaNode;
 	public default: any;
@@ -40,8 +41,21 @@ export class SchemaNode {
 			this.default = options.default;
 		}
 
+		this.options = {};
+
 		if(this.type !== 'array' && this.type !== 'object') {
 			this.dataType = this.schema.registry.get(this.type);
+
+			if(!this.dataType) {
+				console.log('Unknown data type:', this.type);
+				return;
+			}
+
+			for(let option of this.dataType.options) {
+				if(options.hasOwnProperty(option)) {
+					this.options[option] = options[option];
+				}
+			}
 		}
 	}
 
@@ -52,7 +66,12 @@ export class SchemaNode {
 			for(const attributeName in this.attributes) {
 				if(this.attributes.hasOwnProperty(attributeName)) {
 					const attribute = this.attributes[attributeName];
-					data[attributeName] = attribute.read(buffer, cursor);
+
+					try {
+						data[attributeName] = attribute.read(buffer, cursor);
+					} catch(err) {
+						console.error('Error reading attribute:', attributeName);
+					}
 				}
 			}
 
@@ -62,8 +81,53 @@ export class SchemaNode {
 
 			// TODO: Array end handling
 		} else if(!!this.dataType) {
-			return this.dataType
+			try {
+				return this.dataType.read(this, buffer, cursor);
+			} catch(err) {
+				console.error('Error reading value for data type:', this.dataType.name);
+			}
 		}
+	}
+
+	public write(data: any): number[] {
+		if(this.type === 'object') {
+			if(data === undefined && this.default !== undefined) {
+				data = this.default;
+			}
+
+			let result: number[] = [];
+
+			for(const attributeName in this.attributes) {
+				if(this.attributes.hasOwnProperty(attributeName)) {
+					if(!data.hasOwnProperty(attributeName)) {
+						throw new Error('Missing data');
+					}
+
+					const attribute = this.attributes[attributeName];
+					const attributeResult = attribute.write(data[attributeName]);
+
+					if(attributeResult.length) {
+						result = result.concat(attributeResult);
+					}
+				}
+			}
+
+			return result;
+		} else if(this.type === 'array') {
+			return [];
+		} else if(!!this.dataType) {
+			return this.dataType.write(this, data);
+		}
+
+		return [];
+	}
+
+	public getOption(option: string, defaultValue?: any): any {
+		if(this.options.hasOwnProperty(option)) {
+			return this.options[option];
+		}
+
+		return defaultValue;
 	}
 
 }
@@ -75,6 +139,9 @@ export namespace SchemaNode {
 		attributes?: {[key: string]: SchemaNode.Options};
 		children?: SchemaNode.Options;
 		default?: any;
+
+		// for custom options
+		[option: string]: any;
 	}
 
 }

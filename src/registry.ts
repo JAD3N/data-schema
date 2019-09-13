@@ -1,8 +1,9 @@
 import {DataType} from './dataType';
-import * as _ from './types';
+import {DEFAULT_TYPES} from './types';
 
 export class Registry {
 
+	public static readonly DEFAULT_TYPES = DEFAULT_TYPES;
 	public static readonly DEFAULT = new Registry();
 
 	protected types: Map<string, DataType>;
@@ -30,4 +31,8 @@ export class Registry {
 		Registry.DEFAULT.add(type);
 	}
 
+}
+
+for(const type of DEFAULT_TYPES) {
+	Registry.register(type);
 }

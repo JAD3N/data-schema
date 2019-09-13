@@ -8,7 +8,9 @@
 	"scripts": {
 		"clean": "rimraf ./dist/",
 		"build": "rollup -c rollup.config.ts",
-		"watch": "rollup -w -c rollup.config.ts",
+		"build:watch": "rollup -w -c rollup.config.ts",
+		"test": "jest --coverage",
+		"test:watch": "jest --watch",
 		"doc": "typedoc ./src/ --target es6 --mode file --out ./docs/"
 	},
 	"repository": {
@@ -21,7 +23,35 @@
 		"url": "https://github.com/JAD3N/data-schema/issues"
 	},
 	"homepage": "https://github.com/JAD3N/data-schema",
+	"jest": {
+		"transform": {
+			".(ts|tsx)": "ts-jest"
+		},
+		"testEnvironment": "node",
+		"testRegex": "(/tests/.*|\\.(test|spec))\\.(ts|js)$",
+		"moduleFileExtensions": [
+			"ts",
+			"js"
+		],
+		"coveragePathIgnorePatterns": [
+			"/node_modules/",
+			"/tests/"
+		],
+		"coverageThreshold": {
+			"global": {
+				"branches": 90,
+				"functions": 95,
+				"lines": 95,
+				"statements": 95
+			}
+		},
+		"collectCoverageFrom": [
+			"src/*.{js,ts}"
+		]
+	},
 	"devDependencies": {
+		"@types/jest": "^24.0.18",
+		"jest": "^24.9.0",
 		"rimraf": "^3.0.0",
 		"rollup": "^1.20.3",
 		"rollup-plugin-cleaner": "^1.0.0",
@@ -30,6 +60,7 @@
 		"rollup-plugin-node-resolve": "^5.2.0",
 		"rollup-plugin-sourcemaps": "^0.4.2",
 		"rollup-plugin-typescript2": "^0.24.0",
+		"ts-jest": "^24.1.0",
 		"typedoc": "^0.15.0",
 		"typescript": "^3.6.2"
 	}

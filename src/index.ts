@@ -3,17 +3,23 @@ export {ByteBuffer} from './byteBuffer';
 
 import {ByteBuffer} from './byteBuffer';
 import {Schema} from './schema';
+import {Cursor} from './cursor';
 
 const schema = new Schema({
 	type: 'object',
 	attributes: {
-		x: {type: 'uint8'}
+		x: {type: 'uint32'},
+		y: {type: 'uint32'},
+		z: {type: 'uint32'},
 	}
 });
 
-console.log(schema);
+let bytes;
 
-const bytes = [64, 226, 1, 0];
-// const bytes =  [192, 29, 254, 255];
+console.log(bytes = schema.node.write({
+	x: 123,
+	y: 456,
+	z: 789,
+}));
 
-console.log(ByteBuffer.readBytes(bytes, true, true));
+console.log(schema.node.read(new ByteBuffer(bytes), new Cursor()));
